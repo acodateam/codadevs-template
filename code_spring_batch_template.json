@@ -1,0 +1,45 @@
+{
+    "name": "Spring Batch Template",
+    "description": "Spring Batch Template",
+    "tags": [
+        "Code",
+        "Batch Management",
+        "spring",
+        "batch",
+        "java"
+    ],
+    "files": [
+        {
+            "name": "header",
+            "content": "/**\n* Copyright © by acoda. All Rights Reserved.\n**/"
+        },
+        {
+            "name": "class comment",
+            "content": "/**\n* <%= class_comment %>\n*\n* <PRE>\n* <B>作成：</B>\n* <!-- ------------------------------ START OF 作成 -->\n* <%= date_now %>、<%= userName %>\n* <!-- ------------------------------ END OF 作成 -->\n* <B>改訂履歴：</B>\n* <!-- ------------------------------------ START OF 改訂履歴 -->\n* <%= date_now %>、<%= userName %>、新規作成\n* <!-- ------------------------------------ END OF 改訂履歴 -->\n* </PRE>\n*/"
+        },
+        {
+            "name": "job config",
+            "content": "src/main/java/<%= packageName2 %>/job/<%= name %>JobConf.java--\n<%= header %>\n\npackage <%= packageName %>.job;\n\nimport org.springframework.batch.core.Job;\nimport org.springframework.batch.core.Step;\nimport org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;\nimport org.springframework.batch.core.configuration.annotation.JobBuilderFactory;\nimport org.springframework.batch.core.configuration.annotation.StepBuilderFactory;\nimport org.springframework.batch.core.launch.support.RunIdIncrementer;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\nimport <%= packageName %>.common.listener.JobCompletionNotificationListener;\nimport <%= packageName %>.tasklet.<%= name %>Tasklet;\n\n<%- commentClassTemplate %>\n@Configuration\n@EnableBatchProcessing\npublic class <%= name %>JobConf {\n\n    /** ジョブビルダー */\n    private final JobBuilderFactory jobBuilderFactory;\n    \n    /** ステップビルダー */\n    private final StepBuilderFactory stepBuilderFactory;\n    \n    /** ジョブ完了通知リスナー */\n    private final JobCompletionNotificationListener jobCompletionNotificationListener;\n    \n    /** タスクレット */\n    private <%= name %>Tasklet <%= name2 %>Tasklet;\n\n    /** コンストラクタ */\n    @Autowired\n    public <%= name %>JobConf(JobBuilderFactory jobBuilderFactory,\n        StepBuilderFactory stepBuilderFactory,\n        JobCompletionNotificationListener jobCompletionNotificationListener,\n        <%= name %>Tasklet <%= name2 %>Tasklet) {\n        this.jobBuilderFactory = jobBuilderFactory;\n        this.stepBuilderFactory = stepBuilderFactory;\n        this.jobCompletionNotificationListener = jobCompletionNotificationListener;\n        this.<%= name2 %>Tasklet = <%= name2 %>Tasklet;\n    }\n\n    @Bean(name = \"<%= name %>Job\")\n    Job <%= name2 %>Job() {\n        return this.jobBuilderFactory\n                        .get(\"<%= name2 %>Job\")\n                        .preventRestart()\n                        .listener(this.jobCompletionNotificationListener)\n                        .incrementer(new RunIdIncrementer())\n                        .start(this.<%= name2 %>Step1())\n                        .build();\n    }\n\n    @Bean\n    Step <%= name2 %>Step1() {\n        // リスナーにステップ間で情報を引き渡す際のキーを定義\n        return this.stepBuilderFactory\n                        .get(\"<%= name2 %>Step1\")\n                        .tasklet(this.<%= name2 %>Tasklet)\n                        .build();\n    }\n\n}\n"
+        },
+        {
+            "name": "tasklet",
+            "content": "src/main/java/<%= packageName2 %>/tasklet/<%= name %>Tasklet.java--\n<%= header %>\n\npackage <%= packageName %>.tasklet;\n\nimport org.springframework.batch.core.StepContribution;\nimport org.springframework.batch.core.scope.context.ChunkContext;\nimport org.springframework.batch.core.step.tasklet.Tasklet;\nimport org.springframework.batch.repeat.RepeatStatus;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.stereotype.Component;\nimport <%= packageName %>.service.<%= name %>Service;\n\n<%- commentClassTemplate %>\n@Component\npublic class <%= name %>Tasklet implements Tasklet {\n\n    /** サービス */\n    @Autowired\n    private <%= name %>Service <%= name2 %>Service;\n\n    /**\n     * <%= description %>\n     */\n    @Override\n    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {\n        <% params.forEach(function(param){ %>\n        // <%= param.description %>\n        <%= param.type %> <%= param.name %> = (<%= param.type %>) chunkContext.getStepContext().getJobParameters().get(\"<%= param.name %>\");\n        <% }); %>\n        // <%= description %>\n        this.<%= name2 %>Service.execute(<%= paramStr2 %>);\n\n        return RepeatStatus.FINISHED;\n    }\n\n}\n"
+        },
+        {
+            "name": "service",
+            "content": "src/main/java/<%= packageName2 %>/service/<%= name %>Service.java--\n<%= header %>\npackage <%= packageName %>.service;\n\nimport org.springframework.stereotype.Component;\nimport <%= packageName %>.common.exception.AbnormalException;\n\n<%- commentClassTemplate %>\n@Component\npublic interface <%= name %>Service {\n\n    /**\n     * <%= description %>\n     *\n     * @throws AbnormalException\n     */\n    void execute(<%= paramStr %>) throws AbnormalException;\n\n}\n"
+        },
+        {
+            "name": "service impl",
+            "content": "src/main/java/<%= packageName2 %>/service/impl/<%= name %>ServiceImpl.java--\n<%= header %>\npackage <%= packageName %>.service.impl;\n\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.stereotype.Service;\nimport org.springframework.transaction.annotation.Transactional;\nimport <%= packageName %>.common.exception.AbnormalException;\nimport <%= packageName %>.logic.<%= name %>Logic;\nimport <%= packageName %>.service.<%= name %>Service;\nimport lombok.NoArgsConstructor;\n\n<%- commentClassTemplate %>\n@NoArgsConstructor\n@Transactional(rollbackFor = Throwable.class)\npublic class <%= name %>ServiceImpl implements <%= name %>Service {\n\n    /** <%= name %>のロジック */\n    @Autowired\n    private <%= name %>Logic <%= name2 %>Logic;\n\n    @Override\n    public void execute(<%= paramStr %>) throws AbnormalException {\n        this.<%= name2 %>Logic.execute(<%= paramStr2 %>);\n    }\n}\n"
+        },
+        {
+            "name": "logic",
+            "content": "src/main/java/<%= packageName2 %>/logic/<%= name %>Logic.java--\n<%= header %>\npackage <%= packageName %>.logic;\n\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Locale;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.context.MessageSource;\nimport org.springframework.stereotype.Component;\nimport <%= packageName %>.common.exception.AbnormalException;\nimport <%= packageName %>.dao.<%= name %>Dao;\nimport lombok.NoArgsConstructor;\nimport lombok.extern.slf4j.Slf4j;\n\n<%- commentClassTemplate %>\n@Slf4j\n@Component\npublic class <%= name %>Logic {\n\n    /** <%= name %>のDAO */\n    @Autowired\n    private <%= name %>Dao <%= name2 %>Dao;\n\n    @Autowired\n    private MessageSource messages;\n\n    /**\n     * <%= description %>\n     *\n     * @throws AbnormalException\n     */\n    public void execute(<%= paramStr %>) throws AbnormalException {\n    }\n\n}\n"
+        },
+        {
+            "name": "README.md",
+            "content": "# Spring Batch Template"
+        }
+    ]
+}

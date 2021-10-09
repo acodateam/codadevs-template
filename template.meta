@@ -10,6 +10,49 @@
         "file": "code_datatest_mysql_insert_sql_template.json"
     },
     {
+        "name": "DotNet Dao Template",
+        "description": "DotNet Dao Template",
+        "tags": [
+            "Code",
+            "SQL Management",
+            "dotnet"
+        ],
+        "file": "code_dotnet_restapi_dao_template.json"
+    },
+    {
+        "name": "DotNet API Restfull Template",
+        "description": "DotNet API Restfull Template",
+        "tags": [
+            "Code",
+            "API Management",
+            "dotnet"
+        ],
+        "file": "code_dotnet_restapi_template.json"
+    },
+    {
+        "name": "Spring API Template",
+        "description": "Spring API Template",
+        "tags": [
+            "Code",
+            "API Management",
+            "spring",
+            "java"
+        ],
+        "file": "code_spring_api_template.json"
+    },
+    {
+        "name": "Spring Batch Template",
+        "description": "Spring Batch Template",
+        "tags": [
+            "Code",
+            "Batch Management",
+            "spring",
+            "batch",
+            "java"
+        ],
+        "file": "code_spring_batch_template.json"
+    },
+    {
         "name": "Spring JPA Entity Template",
         "description": "Spring JPA Entity Template",
         "tags": [
