@@ -1,0 +1,22 @@
+{
+    "name": "Datatest Template",
+    "description": "Datatest Template",
+    "tags": [
+        "Design",
+        "Datatest Management"
+    ],
+    "files": [
+        {
+            "name": "datatest_excel",
+            "content": "[{\"id\":\"svm5wuwcb\",\"type\":\"Table List\",\"name\":\"Datatest\",\"header\":[{\"text\":\"ID\",\"value\":\"id\",\"width\":\"200px\"},{\"text\":\"Row Number\",\"value\":\"rowNum\",\"width\":\"200px\"},{\"text\":\"Col Number\",\"value\":\"colNum\",\"width\":\"200px\"},{\"text\":\"Value Mapping\",\"value\":\"valueMapping\",\"width\":\"200px\"},{\"text\":\"Note\",\"value\":\"note\",\"width\":\"200px\"},{\"text\":\"Actions\",\"value\":\"actions\",\"width\":\"100px\",\"sortable\":false}],\"data\":[{\"id\":\"startRowTableTemplate\",\"rowNum\":0,\"colNum\":0,\"valueMapping\":\"\",\"note\":\"Start Row Table Template\"},{\"id\":\"startColTableTemplate\",\"rowNum\":0,\"colNum\":0,\"valueMapping\":\"\",\"note\":\"Start Column Table Template\"},{\"id\":\"endRowTableTemplate\",\"rowNum\":\"2\",\"colNum\":0,\"valueMapping\":\"\",\"note\":\"End Row Table Template\"},{\"id\":\"rowTableName\",\"rowNum\":0,\"colNum\":0,\"valueMapping\":\"\",\"note\":\"Row Table Name\"},{\"id\":\"colTableName\",\"rowNum\":0,\"colNum\":0,\"valueMapping\":\"\",\"note\":\"Column Table Name\"},{\"id\":\"rowStart\",\"rowNum\":\"1\",\"colNum\":0,\"valueMapping\":\"\",\"note\":\"Row Table Start\"},{\"id\":\"colStart\",\"rowNum\":0,\"colNum\":0,\"valueMapping\":\"\",\"note\":\"Column Table Start\"}]}]"
+        },
+        {
+            "name": "data",
+            "content": "{\n  \"templateFileName\": \"Datatest_Template.xlsx\"\n}"
+        },
+        {
+            "name": "README.md",
+            "content": "# Datatest Template"
+        }
+    ]
+}

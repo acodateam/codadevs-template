@@ -1,0 +1,18 @@
+{
+    "name": "Mysql Insert SQL Template",
+    "description": "Mysql Insert SQL Template",
+    "tags": [
+        "Datatest Management",
+        "mysql"
+    ],
+    "files": [
+        {
+            "name": "sql",
+            "content": "INSERT INTO {{tableName}}\n({{#each freedataheader}}{{#if (gt @index 0)}}, {{/if}}{{this.text}}{{/each}})\nVALUES\n{{#each freedata}}{{#if (gt @index 0)}},\n{{/if}}({{#each this}}{{#if (gt @index 0)}}, {{/if}}{{#if (eq this.type 'datetime')}}\"{{formatDate this.value \"YYYY-MM-DD hh:mm:ss\"}}\"{{else if (eq this.type 'varchar')}}\"{{this.value}}\"{{else}}{{this.value}}{{/if}}{{/each}}){{/each}}"
+        },
+        {
+            "name": "README.md",
+            "content": "# Mysql Insert SQL Template"
+        }
+    ]
+}

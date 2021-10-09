@@ -1,0 +1,24 @@
+{
+    "name": "Spring JPA Entity Template",
+    "description": "Spring JPA Entity Template",
+    "tags": [
+        "spring",
+        "java",
+        "jpa",
+        "entity"
+    ],
+    "files": [
+        {
+            "name": "entity",
+            "content": "src/main/java/{{replace packageName \".\" \"/\"}}/entity/{{className tableName}}.java--\n/**\n* Copyright © by acoda. All Rights Reserved.\n**/\npackage {{packageName}}.entity;\n\nimport java.io.Serializable;\nimport java.time.LocalDateTime;\nimport javax.persistence.Column;\nimport javax.persistence.Entity;\nimport javax.persistence.GeneratedValue;\nimport javax.persistence.GenerationType;\nimport javax.persistence.Id;\nimport javax.persistence.PrePersist;\nimport javax.persistence.PreUpdate;\nimport javax.persistence.Table;\nimport lombok.Data;\nimport lombok.ToString;\n\n/**\n* {{{tableData.[0].tableComment}}}\n*\n <PRE>\n* <B>作成：</B>\n* <!-- ------------------------------ START OF 作成 -->\n* {{replace dateNow \"-\" \"/\"}}、{{userName}}\n* <!-- ------------------------------ END OF 作成 -->\n* <B>改訂履歴：</B>\n* <!-- ------------------------------------ START OF 改訂履歴 -->\n* {{replace dateNow \"-\" \"/\"}}、{{userName}}、新規作成\n* <!-- ------------------------------------ END OF 改訂履歴 -->\n* </PRE>\n*/\n@Data\n@ToString\n@Entity\n@Table(name = \"{{tableName}}\")\npublic class {{className tableName}} {\n    {{#each tableData}}\n\n    /**\n    * {{this.columnName}}\n    */\n    @Column(name = \"{{this.columnId}}\"{{#if (eq this.javaType \"Boolean\")}}, columnDefinition = \"TINYINT(1)\"{{/if}})\n    private {{this.javaType}} {{camelcase this.columnId}};\n    {{/each}}\n}\n"
+        },
+        {
+            "name": "README.md",
+            "content": "# Spring API"
+        },
+        {
+            "name": "codagen.json",
+            "content": "{\n  \"codagen\": true,\n  \"valid\": false,\n  \"model\": {\n    \"packageName\": \"com.acoda.demo\",\n    \"userName\": \"Demo\",\n    \"dateNow\": \"\",\n    \"outputPath\": \"\",\n    \"useddl\": true\n  },\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"packageName\": {\n        \"type\": \"string\",\n        \"title\": \"Package Name\"\n      },\n      \"userName\": {\n        \"type\": \"string\",\n        \"title\": \"User Name\"\n      },\n      \"dateNow\": {\n        \"type\": \"string\",\n        \"title\": \"Date Generate\",\n        \"format\": \"date\"\n      },\n      \"outputPath\": {\n        \"type\": \"string\",\n        \"title\": \"Output Directory\"\n      },\n      \"useddl\": {\n        \"type\": \"boolean\",\n        \"title\": \"Use DDL data\",\n        \"x-display\": \"switch\"\n      }\n    }\n  }\n}"
+        }
+    ]
+}

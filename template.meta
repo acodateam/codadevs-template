@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Mysql Insert SQL Template",
+        "description": "Mysql Insert SQL Template",
+        "tags": [
+            "Datatest Management",
+            "mysql"
+        ],
+        "file": "code_datatest_mysql_insert_sql_template.json"
+    },
+    {
+        "name": "Spring JPA Entity Template",
+        "description": "Spring JPA Entity Template",
+        "tags": [
+            "spring",
+            "java",
+            "jpa",
+            "entity"
+        ],
+        "file": "code_spring_jpa_entity_template.json"
+    },
+    {
+        "name": "Datatest Template",
+        "description": "Datatest Template",
+        "tags": [
+            "Design",
+            "Datatest Management"
+        ],
+        "file": "design_datatest_template.json"
+    }
+]
